@@ -10,6 +10,13 @@ class NavBar extends Component {
     if(user.id) {
       return(
         <Menu.Menu position='right'>
+          <Link to='/bio'>
+            <Menu.Item
+              name='bio'
+              id='bio'
+              active={location.pathname === '/bio'}
+            />
+          </Link>
           <Menu.Item
             name='logout'
             onClick={() => dispatch(handleLogout(this.props.history))}

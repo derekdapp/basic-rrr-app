@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Form, Segment, Header } from 'semantic-ui-react'
-import { handleRegistration } from '../actions/auth'
+import { registerUser } from '../actions/auth'
 import { connect } from 'react-redux'
 
 class Register extends Component {
@@ -11,7 +11,7 @@ class Register extends Component {
     const { email, password, passwordConfirmation } = this.state;
 
     if(password === passwordConfirmation)
-      this.props.dispatch(handleRegistration(email, password, passwordConfirmation, this.props.history))
+      this.props.dispatch(registerUser(email, password, passwordConfirmation, this.props.history))
     else
       alert('Passwords Do Not Match!')
   }

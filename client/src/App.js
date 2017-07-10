@@ -4,6 +4,10 @@ import NoMatch from './components/NoMatch'
 import NavBar from './components/NavBar'
 import Login from './components/Login'
 import Register from './components/Register'
+import ProtectedRoute from './components/ProtectedRoute'
+import FetchUser from './components/FetchUser'
+import Bio from './components/Bio'
+import Flash from './components/Flash'
 import { Switch, Route } from 'react-router-dom'
 
 class App extends Component {
@@ -11,12 +15,16 @@ class App extends Component {
     return(
       <div>
         <NavBar />
+        <Flash />
+        <FetchUser>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
+            <ProtectedRoute exact path='/bio' component={Bio} />
             <Route component={NoMatch} />
           </Switch>
+        </FetchUser>
       </div>
     )
   }

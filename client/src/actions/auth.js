@@ -1,7 +1,17 @@
 import axios from 'axios';
 import { setAuthHeaders } from '../utils/auth';
+import { setFlash } from './flash';
 
-export const handleRegistration = (email, password, passwordConfirmation, history) => {
+const authErrors = (errors) => {
+  let message = '';
+  let msgType = 'error';
+  errors.forEach( error => {
+    message += `${error}  `
+  });
+  return { type: 'SET_FLASH', message, msgType }
+}
+
+export const registerUser = (email, password, passwordConfirmation, history) => {
   return(dispatch) => {
     axios.post('/api/auth', { email, password, password_confirmation: passwordConfirmation })
       .then( res => {
@@ -10,9 +20,8 @@ export const handleRegistration = (email, password, passwordConfirmation, histor
         history.push('/');
       })
       .catch( res => {
-        // TODO: handle errors client side
-        debugger;
-        console.log(res);
+        const errors = res.response.data.errors;
+        dispatch(authErrors(errors.full_messages));
     });
   }
 }
@@ -29,8 +38,8 @@ export const handleLogout = (history) => {
         history.push('/login');
       })
       .catch( res => {
-        // TODO: handle errors for the client
-        console.log(res);
+          const errors = res.response.data.errors;
+          dispatch(authErrors(errors.full_messages));
       });
     }
 }
@@ -44,8 +53,7 @@ export const handleLogin = (email, password, history) => {
         history.push('/');
       })
       .catch( res => {
-        // TODO: handle errors for the client
-        console.log(res);
-      })
+          dispatch(authErrors(res.response.data.errors));
+      });
   }
 }
