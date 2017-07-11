@@ -16,6 +16,7 @@ class NavBar extends Component {
               id='bio'
               active={location.pathname === '/bio'}
             />
+            <h1>{user.email}</h1>
           </Link>
           <Menu.Item
             name='logout'
